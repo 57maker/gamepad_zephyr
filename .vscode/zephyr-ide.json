@@ -1,3 +1,41 @@
 {
-  "projects": {}
+  "projects": {
+    "hid-gamepad": {
+      "rel_path": "hid-gamepad",
+      "name": "hid-gamepad",
+      "buildConfigs": {
+        "build/rpi_pico2/debug": {
+          "relBoardSubDir": "raspberrypi/rpi_pico2",
+          "board": "rpi_pico2",
+          "name": "build/rpi_pico2/debug",
+          "westBuildArgs": "-b rpi_pico2/rp2350a/m33",
+          "westBuildCMakeArgs": "",
+          "confFiles": {
+            "config": [],
+            "extraConfig": [
+              "hid-gamepad/boards/debug.conf"
+            ],
+            "overlay": [],
+            "extraOverlay": [
+              "hid-gamepad/boards/rpi_pico2.overlay"
+            ]
+          },
+          "runnerConfigs": {
+            "openocd": {
+              "runner": "openocd",
+              "name": "openocd",
+              "args": ""
+            }
+          }
+        }
+      },
+      "twisterConfigs": {},
+      "confFiles": {
+        "config": [],
+        "extraConfig": [],
+        "overlay": [],
+        "extraOverlay": []
+      }
+    }
+  }
 }
