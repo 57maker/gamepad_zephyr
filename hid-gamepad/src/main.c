@@ -103,22 +103,18 @@ static void input_cb(struct input_event *evt, void *user_data)
     case INPUT_BTN_DPAD_UP:
         rwup_if_suspended();
         up = evt->value == 1;
-        report.hat_switch = convert_hat_switch(up, down, left, right);
         break;
     case INPUT_BTN_DPAD_DOWN:
         rwup_if_suspended();
         down = evt->value == 1;
-        report.hat_switch = convert_hat_switch(up, down, left, right);
         break;
     case INPUT_BTN_DPAD_LEFT:
         rwup_if_suspended();
         left = evt->value == 1;
-        report.hat_switch = convert_hat_switch(up, down, left, right);
         break;
     case INPUT_BTN_DPAD_RIGHT:
         rwup_if_suspended();
         right = evt->value == 1;
-        report.hat_switch = convert_hat_switch(up, down, left, right);
         break;
     default:
         if ((evt->code >= INPUT_BTN_0) && (evt->code <= INPUT_BTN_9)) {
@@ -134,6 +130,9 @@ static void input_cb(struct input_event *evt, void *user_data)
         }
     }
 
+    report.x = right ? 0x7F : (left ? 0x81 : 0x00);
+    report.y = down ? 0x7F : (up ? 0x81 : 0x00);
+    report.hat_switch = convert_hat_switch(up, down, left, right);
     if (k_msgq_put(&gamepad_msgq, &report, K_NO_WAIT) != 0) {
         LOG_ERR("Failed to put new input event");
     }
